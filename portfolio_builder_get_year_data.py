@@ -11,21 +11,16 @@ def get_year_data(year):
     engine = sqlalchemy.create_engine(database_connection_string)
     
     # Show tables in the SQLite database.
-    engine.table_names()
+    inspector = inspect(engine)
+    # print(inspector.get_table_names())
     
     # import S&P500 tickers from fmp_sp500.csv
     with open('fmp_sp500.csv', 'r') as file:
         tickers = file.read().splitlines()
-        
-    # ticker = "LUMN"
-    # tickers = ['AAPL', 'BA']
-    
-    year = "2015"
+
     dictionary = {}
     results_df = pd.DataFrame(dictionary)
-    
-    
-    
+     
     for ticker in tickers:
         
         query = "SELECT * from " + ticker + "_key_metrics_processed"

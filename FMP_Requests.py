@@ -6,6 +6,7 @@ except ImportError:
     from urllib2 import urlopen
 
 import json
+import pandas as pd
 
 base_string = "https://financialmodelingprep.com/api/v3/"
 api_string = "?apikey="
@@ -58,4 +59,14 @@ def get_key_metrics(ticker, apikey):
 
 def get_sp500_constituent(apikey):
     url = (base_string + "sp500_constituent/" + api_string + apikey)
+    return get_jsonparsed_data(url)
+
+def get_stock_hist_daily_prices(ticker, start_date, end_date, apikey):
+    url = (base_string + "historical-price-full/" + ticker + "?from=" + start_date + "&to=" + end_date + "&apikey=" + apikey)
+    response = get_jsonparsed_data(url)
+    response_df = pd.DataFrame(response['historical'])
+    return response_df
+
+def get_current_stock_price(ticker, apikey):
+    url = (base_string + "quote-short/" + ticker + api_string + apikey)
     return get_jsonparsed_data(url)

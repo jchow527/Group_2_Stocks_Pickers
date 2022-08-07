@@ -12,19 +12,19 @@ apikey = os.getenv("FMP_API_KEY")
 
 # Create a SQLite database and populate the database with content from the stocks_data.db file
 database_connection_string = 'sqlite:///stocks_data.db'
-
-# Create an engine to interact with the SQLite database
 engine = sqlalchemy.create_engine(database_connection_string)
+inspector1 = inspect(engine)
+# print(inspector1.get_table_names())
 
-# Show tables in the SQLite database.
-engine.table_names()
-
+# Create a SQLite database and populate the database with content from the stocks_data_processed.db file
+database_connection_string2 = 'sqlite:///stocks_data_processed.db'
+engine2 = sqlalchemy.create_engine(database_connection_string2)
+inspector2 = inspect(engine2)
+# print(inspector2.get_table_names())
 
 # import S&P500 tickers from fmp_sp500.csv
 with open('fmp_sp500.csv', 'r') as file:
     tickers = file.read().splitlines()
-
-# tickers = ['AAPL']
 
 # Get Income Statements for S&P 500 tickers and save each income statement into database
 i = 1
@@ -45,17 +45,9 @@ for ticker in tickers:
 
 
 # Process Income Statements
-# Create a SQLite database and populate the database with content from the stocks_data.db file
-database_connection_string2 = 'sqlite:///stocks_data_processed.db'
-
-# Create an engine to interact with the SQLite database
-engine2 = sqlalchemy.create_engine(database_connection_string2)
-
 i = 1
 for ticker in tickers:
-
     query = "SELECT * from " + ticker + "_income_statment"
-#   query = "SELECT * from BOAPL_income_statment"
     print (query)
     df = pd.read_sql_query(query, con=engine)
     df = df.T
@@ -70,13 +62,11 @@ for ticker in tickers:
     print(i, " Processed Income Statemet for " + ticker)
     i = i + 1
 
-# Confirm that the table was created by calling the table_names function
-engine2.table_names()
+# print(inspector1.get_table_names())
 
 # Get Key Metrics for S&P 500 tickers and save each key metrics into database
 i = 1
 for ticker in tickers:
-
     response = fmp.get_key_metrics(ticker, apikey)
     df = pd.DataFrame(response)
     
@@ -89,18 +79,11 @@ for ticker in tickers:
     print(i, " Downloaded " + ticker)
     i = i + 1
     time.sleep(0.3)
-
+print(inspector1.get_table_names())
 
 # Process Key Metrics
-# Create a SQLite database - stocks_data_processed.db file
-database_connection_string2 = 'sqlite:///stocks_data_processed.db'
-
-# Create an engine to interact with the SQLite database
-engine2 = sqlalchemy.create_engine(database_connection_string2)
-
 i = 1
 for ticker in tickers:
-
     query = "SELECT * from " + ticker + "_key_metrics"
     print (query)
     df = pd.read_sql_query(query, con=engine)
@@ -117,22 +100,8 @@ for ticker in tickers:
     print(i, " Processed Key Metrics for " + ticker)
     i = i + 1
 
-"""
+print(inspector2.get_table_names())
 
-print (tickers)
 
-response = fmp.get_sp500_constituent(apikey)
-df = pd.DataFrame(response)
-df.to_csv('fmp_sp500.csv')
-
-query = "SELECT * from ZTS_income_statment_processed"
-df3 = pd.read_sql_query(query, con=engine2)
-
-engine.execute("DROP TABLE KO_income_statment")
-
-inspector = inspect(engine)
-print(inspector.get_table_names())
-
-"""
 
 
