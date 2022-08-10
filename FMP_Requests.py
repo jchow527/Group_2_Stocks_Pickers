@@ -70,3 +70,7 @@ def get_stock_hist_daily_prices(ticker, start_date, end_date, apikey):
 def get_current_stock_price(ticker, apikey):
     url = (base_string + "quote-short/" + ticker + api_string + apikey)
     return get_jsonparsed_data(url)
+
+def get_historial_daily_stock_price(ticker, apikey):
+    url = (base_string + "quote-short/" + ticker + api_string + apikey)
+    return get_jsonparsed_data(url)

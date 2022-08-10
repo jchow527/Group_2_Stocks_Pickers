@@ -11,8 +11,8 @@ def get_year_data(year):
     engine = sqlalchemy.create_engine(database_connection_string)
     
     # Show tables in the SQLite database.
-    inspector = inspect(engine)
-    # print(inspector.get_table_names())
+#    inspector = inspect(engine)
+#    print(inspector.get_table_names())
     
     # import S&P500 tickers from fmp_sp500.csv
     with open('fmp_sp500.csv', 'r') as file:

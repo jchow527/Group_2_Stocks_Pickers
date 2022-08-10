@@ -79,7 +79,7 @@ for ticker in tickers:
     print(i, " Downloaded " + ticker)
     i = i + 1
     time.sleep(0.3)
-print(inspector1.get_table_names())
+# print(inspector1.get_table_names())
 
 # Process Key Metrics
 i = 1
@@ -100,7 +100,7 @@ for ticker in tickers:
     print(i, " Processed Key Metrics for " + ticker)
     i = i + 1
 
-print(inspector2.get_table_names())
+# print(inspector2.get_table_names())
 
 
 
