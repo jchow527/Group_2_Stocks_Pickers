@@ -42,6 +42,12 @@ portfolio_builder_calc_ranking.py
 FMP_Requests.py
 stocks_data_processed.db
 
+Note: A free API Key for FinancialModelingPrep.com must be obtained for this app to work. The free Alpaca API keys can be obtained from Alpaca.Markets. The API Keys must be stored in a .env file in the same directory as app.ipynb, with the following line in the file (the keys below are examples):
+
+ALPACA_API_KEY = ABCD1234
+ALPACA_SECRET_KEY = B819AL9B
+FMP_API_KEY = BAIE9847
+
 The images below shows the webpage that will be launched by app.ipynb.
 
 ![application GUI](images/image1.png)
