@@ -1,3 +1,5 @@
+## Pull specific key metrics of a company by year
+
 import pandas as pd
 import sqlalchemy
 from sqlalchemy import inspect
@@ -20,13 +22,16 @@ def get_year_data(year):
 
     dictionary = {}
     results_df = pd.DataFrame(dictionary)
-     
+    
+    # pull key metrics for a specific year from the database
     for ticker in tickers:
         
         query = "SELECT * from " + ticker + "_key_metrics_processed"
         df = pd.read_sql_query(query, con=engine)
         df = df.fillna(0)
         
+        
+        # pick only selected metrics to form a new results_df dataframe, to improve speed of processing later
         if set([year]).issubset(df.columns):
             market_cap = float(df.loc[13,year])
             enterprise_value = float(df.loc[14,year])

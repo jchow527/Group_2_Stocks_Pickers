@@ -11,7 +11,7 @@ import pandas as pd
 base_string = "https://financialmodelingprep.com/api/v3/"
 api_string = "?apikey="
 
-
+# code provided by financialmodelingprep.com
 def get_jsonparsed_data(url):
     """
     Receive the content of ``url``, parse it as JSON and return the object.
@@ -28,15 +28,17 @@ def get_jsonparsed_data(url):
     data = response.read().decode("utf-8")
     return json.loads(data)
 
+# get ticker company profile
 def get_profile(ticker, apikey):
     url = (base_string + "profile/" + ticker + api_string + apikey)
     return get_jsonparsed_data(url)
 
+# get ticker income statment
 def get_income_statement(ticker, apikey):
     url = (base_string + "income-statement/" + ticker + api_string + apikey)
     return get_jsonparsed_data(url)
 
-
+# get ticker balance sheet
 def get_balance_sheet_statement(ticker, apikey):
     url = (base_string + "balance-sheet-statement/" + ticker + api_string + apikey)
     return get_jsonparsed_data(url)

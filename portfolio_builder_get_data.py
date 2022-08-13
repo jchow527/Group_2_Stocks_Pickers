@@ -1,3 +1,5 @@
+### Use API calls to pull data from financialmodelingprep.com and store into database so as not to keep pulling the same data over and over again
+
 import pandas as pd
 from dotenv import load_dotenv
 import os
@@ -7,6 +9,7 @@ import csv
 import time
 import FMP_Requests as fmp
 
+# load api key for financialmodelingprep.com from .env file
 load_dotenv()
 apikey = os.getenv("FMP_API_KEY")
 
